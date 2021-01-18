@@ -1,0 +1,27 @@
+{
+  "name": "vite-dev-prod",
+  "version": "0.1.0",
+  "description": "use vite for dev and rollup bundle code for legacy/module script mode",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "core-js": "^3.8.2",
+    "element-plus": "^1.0.1-beta.24",
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@vitejs/plugin-legacy": "^1.2.1",
+    "@vitejs/plugin-vue": "^1.0.4",
+    "@vue/compiler-sfc": "^3.0.5",
+    "chalk": "^4.1.0",
+    "ora": "^5.2.0",
+    "path": "^0.12.7",
+    "vite": "^2.0.0-beta.12"
+  }
+}
