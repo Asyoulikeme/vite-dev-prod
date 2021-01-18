@@ -1,22 +1,23 @@
 import vue from '@vitejs/plugin-vue';
 import { babel } from '@rollup/plugin-babel';
 import legacy from '@vitejs/plugin-legacy'
-import RollupBuildState from "./rollup-plugin-build-state";
-const WriteBuildInfo  =  require("./rollup-plugin-write");
+import rollupBuildState from "./rollup-plugin-build-state";
+const writeBuildInfo  =  require("./rollup-plugin-write");
+
 const isProd = process.env.NODE_ENV === 'production'
+console.log(process.env.NODE_ENV)
 const basePlugins = []
 const devPlugins = []
-const prodPlugins = [
-  
-]
 /* 仅对构建阶段有意义的插件，置于 rollupOptions.plugins 中 */
 const buildPhasePlugins = [
-  RollupBuildState(),
+  rollupBuildState(),
   babel({ 
     babelHelpers: 'bundled',
     exclude:"node_module/**"
   }),
+  writeBuildInfo()
 ]
+const prodPlugins = [...buildPhasePlugins]
 const plugins = [...basePlugins].concat(isProd ? prodPlugins : devPlugins)
 /**
  * @type {import('vite').UserConfig}
@@ -26,7 +27,6 @@ export default ({ command, mode }) => {
     return {
       // serve specific config
       plugins: [
-           
         vue(),
       ],
       server:{
@@ -44,20 +44,17 @@ export default ({ command, mode }) => {
     }
   } else {
     return {
-      // build specific config
       plugins: [
         legacy(),
         vue(),
       ],
-    
       build:{
-        // target:"es5", default、const 、let transform not supported yet
         rollupOptions:{
           output:
           {
             //dir:"./dist",
             // assetFileNames:"" // js 文件不包含在此输出，只有 字体、图片、css 等文件才能在此输出
-            //banner:"/* 6666666666 */",
+            // banner:"/* 在vite中行不通，所以我自定义了插件来解决这个问题。 */",
             // manualChunks(id) {
             //   /* rename chunks */
             //   if(id.includes('node_modules')) {
@@ -65,10 +62,7 @@ export default ({ command, mode }) => {
             //   }
             // }
           },
-          plugins:[
-            WriteBuildInfo(),
-            ...buildPhasePlugins
-          ]
+          plugins:plugins
         }
       }
     }

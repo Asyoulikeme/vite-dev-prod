@@ -1,10 +1,9 @@
-//import "core-js";
 import { createApp } from 'vue'
 import App from './App.vue'
-//import ElementPlus from 'element-plus';
-//import 'element-plus/lib/theme-chalk/index.css';
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
 const app = createApp(App)
-//app.use(ElementPlus)
+app.use(ElementPlus)
 app.mount('#app')
 
 const p1 = new Promise(resolve => {
@@ -15,7 +14,6 @@ const p1 = new Promise(resolve => {
   })
   Promise.allSettled([p1,p2]).then( res => {
     console.log(res)
-    window.fss = res
   })
 
   const obj = {
